@@ -1,0 +1,12 @@
+jar {
+    enabled = true
+}
+
+
+dependencies {
+
+}
+
+test {
+    useJUnitPlatform()
+}
