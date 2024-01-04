@@ -9,7 +9,7 @@ bootJar {
 }
 
 allprojects {
-	group = 'com.example'
+	group = 'dev.practice'
 	version = '0.0.1-SNAPSHOT'
 	sourceCompatibility = '17'
 
@@ -20,6 +20,14 @@ allprojects {
 
 subprojects {
 	apply plugin: 'java'
+
+	dependencies {
+		compileOnly 'org.projectlombok:lombok:1.18.30'
+		annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+		testCompileOnly 'org.projectlombok:lombok:1.18.30'
+		testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+	}
 
 	tasks.named('test') {
 		useJUnitPlatform()
