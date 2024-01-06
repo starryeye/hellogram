@@ -22,4 +22,14 @@ public class Article {
         this.thumbnails = thumbnails;
         this.creatorId = creatorId;
     }
+
+    public static Article create(String title, String content, List<ArticleThumbnail> thumbnails, String creatorId) {
+        return Article.builder()
+                .id(null)
+                .title(title)
+                .content(content)
+                .thumbnails(thumbnails)
+                .creatorId(creatorId)
+                .build();
+    }
 }
