@@ -18,4 +18,13 @@ public class ArticleThumbnail {
         this.width = width;
         this.height = height;
     }
+
+    public static ArticleThumbnail createById(String id) {
+        return ArticleThumbnail.builder()
+                .id(id)
+                .url("")
+                .width(0)
+                .height(0)
+                .build();
+    }
 }
