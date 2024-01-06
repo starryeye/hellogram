@@ -9,6 +9,22 @@ dependencies {
 
     // reactor-core
     implementation 'io.projectreactor:reactor-core:3.6.1'
+
+
+    // -- test -- //
+
+    // mockito
+    testImplementation 'org.mockito:mockito-core:5.8.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
+
+    // JUnit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+
+    // reactor
+    testImplementation 'io.projectreactor:reactor-test:3.6.1'
+
+
 }
 
 test {
