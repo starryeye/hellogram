@@ -4,7 +4,11 @@ jar {
 
 
 dependencies {
+    // javax.inject
+    implementation 'javax.inject:javax.inject:1'
 
+    // reactor-core
+    implementation 'io.projectreactor:reactor-core:3.6.1'
 }
 
 test {
