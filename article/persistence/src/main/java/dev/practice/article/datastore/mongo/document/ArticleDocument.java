@@ -1,18 +1,15 @@
 package dev.practice.article.datastore.mongo.document;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Slf4j
 @Getter
 @Document(collection = "articles")
-//@AllArgsConstructor // For object mapping, instance creation (유일한 생성자라 동작, property population 을 단계를 건너뛰게 만들어서 성능이점)
 public class ArticleDocument {
 
     // final properties
@@ -23,9 +20,10 @@ public class ArticleDocument {
     private final List<String> thumbnailIds;
     private final String creatorId;
 
-    // 접근제어자 바꿔보기
-    public ArticleDocument(ObjectId id, String title, String content, List<String> thumbnailIds, String creatorId) {
-        log.info("all argument constructor");
+    // For object mapping, instance creation (유일한 생성자라 동작, property population 을 단계를 건너뛰게 만들어서 성능이점)
+    // 참고로 insert 전의 객체와 결과로 받은 객체의 인스턴스는 서로 다르다.
+    @Builder
+    private ArticleDocument(ObjectId id, String title, String content, List<String> thumbnailIds, String creatorId) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -33,9 +31,14 @@ public class ArticleDocument {
         this.creatorId = creatorId;
     }
 
-    // static factory method
+    // static factory method, 편의
     public static ArticleDocument create(String title, String content, List<String> thumbnailIds, String creatorId) {
-        log.info("static factory method");
-        return new ArticleDocument(null, title, content, thumbnailIds, creatorId);
+        return ArticleDocument.builder()
+                .id(null)
+                .title(title)
+                .content(content)
+                .thumbnailIds(thumbnailIds)
+                .creatorId(creatorId)
+                .build();
     }
 }

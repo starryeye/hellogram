@@ -7,8 +7,15 @@ jar {
 
 
 dependencies {
-
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+
+    // test container
+    testImplementation 'org.testcontainers:testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:mongodb'
+
+    // mac os
+    runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
 }
 
 test {

@@ -5,16 +5,20 @@ import dev.practice.article.entity.ArticleThumbnail;
 
 public class ArticleDocumentConverterFactory {
 
+    private ArticleDocumentConverterFactory() {}
+
     public static ArticleDocument fromEntity(Article article) {
-        return new ArticleDocument(
-                null,
-                article.getTitle(),
-                article.getContent(),
-                article.getThumbnails().stream()
-                        .map(ArticleThumbnail::getId)
-                        .toList(),
-                article.getCreatorId()
-        );
+        return ArticleDocument.builder()
+                .id(null)
+                .title(article.getTitle())
+                .content(article.getContent())
+                .thumbnailIds(
+                        article.getThumbnails().stream()
+                                .map(ArticleThumbnail::getId)
+                                .toList()
+                )
+                .creatorId(article.getCreatorId())
+                .build();
     }
 
     public static Article fromDocument(ArticleDocument articleDocument) {
