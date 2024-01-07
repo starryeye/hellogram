@@ -41,6 +41,7 @@ project(':presentation') {
 
 	dependencies {
 		implementation project(':core')
+		implementation project(':persistence') // 코드상으론 의존성이 없지만, presentation module 에 있는 Spring boot application 에서 persistence module 의 bean 을 스캔하려면.. 필요함..
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'io.projectreactor:reactor-test'
