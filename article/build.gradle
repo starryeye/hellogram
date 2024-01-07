@@ -41,6 +41,9 @@ project(':presentation') {
 
 	dependencies {
 		implementation project(':core')
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
 	}
 }
 
@@ -51,6 +54,9 @@ project(':persistence') {
 
 	dependencies {
 		implementation project(':core')
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
 	}
 }
 
