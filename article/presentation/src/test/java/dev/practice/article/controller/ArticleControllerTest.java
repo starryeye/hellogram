@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @Slf4j
@@ -64,6 +65,13 @@ class ArticleControllerTest {
 
 
         // stubbing
+        CreateArticleUsecase.Input input = CreateArticleUsecase.Input.builder()
+                .title(title)
+                .content(content)
+                .thumbnailImageIds(thumbnailImageIds)
+                .creatorId(creatorId)
+                .build();
+
         List<ArticleThumbnail> thumbnails = thumbnailImageIds.stream()
                 .map(ArticleThumbnail::createById)
                 .toList();
@@ -74,7 +82,8 @@ class ArticleControllerTest {
                 .creatorId(creatorId)
                 .thumbnails(thumbnails)
                 .build();
-        when(mockCreateArticleUsecase.execute(any()))
+
+        when(mockCreateArticleUsecase.execute(eq(input)))
                 .thenReturn(Mono.just(article));
 
 

@@ -4,6 +4,7 @@ import dev.practice.article.entity.Article;
 import dev.practice.article.entity.ArticleThumbnail;
 import dev.practice.article.repository.ArticleRepository;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
@@ -16,6 +17,7 @@ public class CreateArticleUsecase {
 
     private final ArticleRepository articleRepository;
 
+    @EqualsAndHashCode
     public static class Input {
         private final String title;
         private final String content;
