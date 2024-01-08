@@ -61,5 +61,17 @@ project(':persistence') {
 	}
 }
 
+project(':network') {
+
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	dependencies {
+		implementation project(':core')
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'io.projectreactor:reactor-test'
+	}
+}
 
 
