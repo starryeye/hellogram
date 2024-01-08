@@ -1,0 +1,12 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      imageCb:
+        sliding-window-size: 4
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 4
+        wait-duration-in-open-state: 3s
+  timelimiter:
+    instances:
+      imageCb:
+        timeout-duration: 1s
