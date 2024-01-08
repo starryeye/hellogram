@@ -28,4 +28,13 @@ public class ImageResponse {
                 .height(height)
                 .build();
     }
+
+    public static ImageResponse fallback(String id) {
+        return ImageResponse.builder()
+                .id(Long.parseLong(id))
+                .url("http://localhost:8081/images/0")
+                .width(50)
+                .height(50)
+                .build();
+    }
 }

@@ -5,21 +5,35 @@ import dev.practice.article.datasource.rest.image.ImageClient;
 import dev.practice.article.datasource.rest.image.ImageResponse;
 import dev.practice.article.entity.ArticleThumbnail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
+import java.util.function.Function;
 
 @RequiredArgsConstructor
 @Component
 public class ArticleThumbnailClientImpl implements ArticleThumbnailClient {
 
     private final ImageClient imageClient;
+    private final ReactiveCircuitBreakerFactory cbf;
 
     @Override
     public Flux<ArticleThumbnail> getArticleThumbnails(List<String> articleThumbnailIds) {
 
         return imageClient.getImagesByIds(articleThumbnailIds)
-                .map(ImageResponse::toEntity);
+                .transform(
+                        toRun -> {
+                            ReactiveCircuitBreaker imageCb = cbf.create("imageCb");
+                            return imageCb.run(toRun, fallback(articleThumbnailIds));
+                        }
+                ).map(ImageResponse::toEntity);
+    }
+
+    private static Function<Throwable, Flux<ImageResponse>> fallback(List<String> articleThumbnailIds) {
+        return throwable -> Flux.fromIterable(articleThumbnailIds)
+                .map(ImageResponse::fallback);
     }
 }
