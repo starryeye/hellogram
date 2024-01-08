@@ -32,4 +32,14 @@ public class Article {
                 .creatorId(creatorId)
                 .build();
     }
+
+    public static Article withArticleThumbnails(Article article, List<ArticleThumbnail> thumbnails) {
+        return Article.builder()
+                .id(article.getId())
+                .title(article.getTitle())
+                .content(article.getContent())
+                .thumbnails(thumbnails)
+                .creatorId(article.creatorId)
+                .build();
+    }
 }

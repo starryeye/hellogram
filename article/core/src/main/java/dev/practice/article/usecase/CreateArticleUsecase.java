@@ -1,5 +1,6 @@
 package dev.practice.article.usecase;
 
+import dev.practice.article.client.ArticleThumbnailClient;
 import dev.practice.article.entity.Article;
 import dev.practice.article.entity.ArticleThumbnail;
 import dev.practice.article.repository.ArticleRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 public class CreateArticleUsecase {
 
     private final ArticleRepository articleRepository;
+    private final ArticleThumbnailClient articleThumbnailClient;
 
     @EqualsAndHashCode
     public static class Input {
@@ -35,8 +37,20 @@ public class CreateArticleUsecase {
 
     public Mono<Article> execute(Input input) {
 
+        /**
+         * 전달 받은 article 정보(thumbnail ids 포함) 를 저장하고 (mongodb 저장)
+         * thumbnail ids 로 image 들을 구해와서 (image server 요청)
+         * 최종 article 을 응답한다.
+         */
 
-        Article article = Article.create(
+        Article article = createdArticleByInput(input);
+
+        return articleRepository.save(article)
+                .flatMap(this::loadThumbnails);
+    }
+
+    private Article createdArticleByInput(Input input) {
+        return Article.create(
                 input.title,
                 input.content,
                 input.thumbnailImageIds.stream()
@@ -44,7 +58,18 @@ public class CreateArticleUsecase {
                         .toList(),
                 input.creatorId
         );
+    }
 
-        return articleRepository.save(article);
+    private Mono<Article> loadThumbnails(Article savedArticle) {
+
+            List<String> thumbnailImageIds = savedArticle.getThumbnails().stream()
+                    .map(ArticleThumbnail::getId)
+                    .toList();
+
+            return articleThumbnailClient.getArticleThumbnails(thumbnailImageIds)
+                    .collectList()
+                    .map(
+                            gotArticleThumbnails -> Article.withArticleThumbnails(savedArticle, gotArticleThumbnails)
+                    );
     }
 }
