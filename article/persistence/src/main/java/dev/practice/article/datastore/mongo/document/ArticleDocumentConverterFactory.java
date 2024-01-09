@@ -28,7 +28,7 @@ public class ArticleDocumentConverterFactory {
                 .content(articleDocument.getContent())
                 .thumbnails(
                         articleDocument.getThumbnailIds().stream()
-                                .map(ArticleThumbnail::createById)
+                                .map(ArticleThumbnail::createByOnlyId)
                                 .toList()
                 )
                 .creatorId(articleDocument.getCreatorId())

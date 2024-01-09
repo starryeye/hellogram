@@ -73,7 +73,7 @@ class ArticleControllerTest {
                 .build();
 
         List<ArticleThumbnail> thumbnails = thumbnailImageIds.stream()
-                .map(ArticleThumbnail::createById)
+                .map(ArticleThumbnail::createByOnlyId)
                 .toList();
         Article article = Article.builder()
                 .id(id)

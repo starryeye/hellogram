@@ -19,7 +19,7 @@ public class ArticleThumbnail {
         this.height = height;
     }
 
-    public static ArticleThumbnail createById(String id) {
+    public static ArticleThumbnail createByOnlyId(String id) {
         return ArticleThumbnail.builder()
                 .id(id)
                 .url("")

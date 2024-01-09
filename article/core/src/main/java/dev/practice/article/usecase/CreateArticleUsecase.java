@@ -54,7 +54,7 @@ public class CreateArticleUsecase {
                 input.title,
                 input.content,
                 input.thumbnailImageIds.stream()
-                        .map(ArticleThumbnail::createById)
+                        .map(ArticleThumbnail::createByOnlyId)
                         .toList(),
                 input.creatorId
         );
