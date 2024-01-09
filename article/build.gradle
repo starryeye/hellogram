@@ -8,10 +8,13 @@ bootJar {
 	enabled = false
 }
 
+ext {
+	set('springCloudVersion', "2023.0.0")
+}
+
 allprojects {
 	group = 'dev.practice'
 	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = '17'
 
 	repositories {
 		mavenCentral()
@@ -19,6 +22,7 @@ allprojects {
 }
 
 subprojects {
+	sourceCompatibility = '17'
 	apply plugin: 'java'
 
 	dependencies {
@@ -41,11 +45,27 @@ project(':presentation') {
 
 	dependencies {
 		implementation project(':core')
-		implementation project(':persistence') // 코드상으론 의존성이 없지만, presentation module 에 있는 Spring boot application 에서 persistence module 의 bean 을 스캔하려면.. 필요함..
-		implementation project(':network') // 상동
+
+		/**
+		 * 코드상으론 의존성이 없지만(compile 단계)..
+		 * presentation module 에 있는 Spring boot application 에서 runtime 에 persistence module 의 bean 을 스캔하려면.. 필요함..
+		 * 따라서, runtimeOnly..
+		 *
+		 * gradle 로 article > other > compileJava 를 수행하고 run 하면 동작하지만..
+		 * build clean 하고 컴파일하지 않고 그냥 run 을 하면 error..
+		 * 그래서 그냥 implementation 으로 둔다..
+		 */
+		implementation project(':persistence')
+		implementation project(':network')
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'io.projectreactor:reactor-test'
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
 	}
 }
 
@@ -72,6 +92,12 @@ project(':network') {
 
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'io.projectreactor:reactor-test'
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+		}
 	}
 }
 

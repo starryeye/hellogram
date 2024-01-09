@@ -1,3 +1,14 @@
+
+logging:
+  level:
+    root: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
 resilience4j:
   circuitbreaker:
     instances:

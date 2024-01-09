@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  data:
+    mongodb:
+      uri: mongodb://root:1234@localhost:27017/article-db?authSource=admin

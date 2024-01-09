@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: local
+    include:
+      - persistence
+      - network
+
+server:
+  port: 8080
