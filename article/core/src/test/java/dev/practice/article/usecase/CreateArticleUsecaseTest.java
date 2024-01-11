@@ -33,7 +33,7 @@ class CreateArticleUsecaseTest {
     @Mock
     private ArticleThumbnailClient mockArticleThumbnailClient;
 
-    @DisplayName("Article 을 저장한다.")
+    @DisplayName("Article 을 저장하고 썸네일을 로드하고 이벤트를 발행한다.")
     @Test
     void execute() {
 

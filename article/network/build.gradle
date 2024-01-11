@@ -6,8 +6,16 @@ jar {
 }
 
 dependencies {
+
+    // WebClient
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // CircuitBreaker
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
+
+    // StreamBridge and kafka
+    implementation 'org.springframework.cloud:spring-cloud-stream'
+    implementation 'org.springframework.cloud:spring-cloud-stream-binder-kafka-reactive'
 }
 
 test {

@@ -8,6 +8,17 @@ spring:
   config:
     activate:
       on-profile: local
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092,localhost:9093,localhost:9094
+      bindings:
+        articles-out-0:
+          binder: reactorKafka
+          destination: articles
+          content-type: text/plain
+          group: group2
 
 resilience4j:
   circuitbreaker:
