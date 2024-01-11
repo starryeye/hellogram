@@ -3,6 +3,9 @@ package dev.practice.article.usecase;
 import dev.practice.article.client.ArticleThumbnailClient;
 import dev.practice.article.entity.Article;
 import dev.practice.article.entity.ArticleThumbnail;
+import dev.practice.article.publisher.event.ArticleEvent;
+import dev.practice.article.publisher.ArticleEventPublisher;
+import dev.practice.article.publisher.event.ArticleEventFactory;
 import dev.practice.article.repository.ArticleRepository;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -18,6 +21,7 @@ public class CreateArticleUsecase {
 
     private final ArticleRepository articleRepository;
     private final ArticleThumbnailClient articleThumbnailClient;
+    private final ArticleEventPublisher articleEventPublisher;
 
     @EqualsAndHashCode
     public static class Input {
@@ -41,12 +45,15 @@ public class CreateArticleUsecase {
          * 전달 받은 article 정보(thumbnail ids 포함) 를 저장하고 (mongodb 저장)
          * thumbnail ids 로 image 들을 구해와서 (image server 요청)
          * 최종 article 을 응답한다.
+         *
+         * + 최종 응답하기 전 event 발행
          */
 
         Article article = createdArticleByInput(input);
 
         return articleRepository.save(article)
-                .flatMap(this::loadThumbnails);
+                .flatMap(this::loadThumbnails)
+                .doOnNext(this::publishCreatedArticleEvent);
     }
 
     private Article createdArticleByInput(Input input) {
@@ -71,5 +78,12 @@ public class CreateArticleUsecase {
                     .map(
                             gotArticleThumbnails -> Article.withArticleThumbnails(savedArticle, gotArticleThumbnails)
                     );
+    }
+
+    private void publishCreatedArticleEvent(Article completedArticle) {
+
+        ArticleEvent createdArticleEvent = ArticleEventFactory.generateCreatedArticleEvent(completedArticle);
+
+        articleEventPublisher.publish(createdArticleEvent);
     }
 }
