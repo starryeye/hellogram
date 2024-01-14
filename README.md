@@ -1,5 +1,5 @@
 # hellogram
-reactive stack 으로 구현하는 SNS
+reactive stack 으로 구현하는 SNS, 모의 instagram
 
 ## architecture
 - todo
