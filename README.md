@@ -20,4 +20,7 @@ reactive stack 으로 구현하는 SNS, 모의 instagram
 - user
   - Reactive stack
     - cloud-stream-binder-kafka-reactive
+- gateway
+  - Reactive stack
+    - spring-cloud-starter-gateway
  
