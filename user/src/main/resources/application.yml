@@ -1,1 +1,31 @@
+spring:
+  cloud:
+
+    function:
+      definition: toFollowerMessageBinding
+
+    stream:
+
+      kafka:
+        binder:
+          brokers: localhost:9092,localhost:9093,localhost:9094
+        bindings:
+          toFollowerMessageBinding-in-0:
+            consumer:
+              start-offset: latest
+
+      bindings:
+        toFollowerMessageBinding-in-0:
+          binder: reactorKafka
+          destination: articles
+          content-type: text/plain
+          group: group2
+        toFollowerMessageBinding-out-0:
+          binder: reactorKafka
+          destination: notifications
+          content-type: text/plain
+          group: group2
+server:
+  port: 8082
+
 
