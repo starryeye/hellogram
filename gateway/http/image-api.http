@@ -1,0 +1,2 @@
+### Gateway 를 통해 image 서버로 요청을 보낸다.
+GET http://localhost:8100/images/1
