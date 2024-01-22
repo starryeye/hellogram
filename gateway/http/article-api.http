@@ -1,0 +1,10 @@
+### Gateway 를 통해 article 서버로 요청을 보낸다.
+POST http://localhost:8100/articles/api/v1/articles
+Content-Type: application/json
+X-I-AM: 123123
+
+{
+  "title": "article from gateway",
+  "content": "article content from gateway",
+  "thumbnailImageIds": ["1", "2"]
+}

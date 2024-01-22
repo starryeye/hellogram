@@ -11,3 +11,9 @@ spring:
             - Path=/images/**
           filters:
             - PrefixPath=/api/v1
+        - id: articles
+          uri: http://localhost:8080
+          predicates:
+            - Path=/articles/**
+          filters:
+            - StripPrefix=1
