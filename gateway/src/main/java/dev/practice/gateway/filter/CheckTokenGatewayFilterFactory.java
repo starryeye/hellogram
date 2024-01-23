@@ -20,6 +20,10 @@ public class CheckTokenGatewayFilterFactory extends AbstractGatewayFilterFactory
         private String tokenHeaderName; // tokenHeaderName 이라는 변수 명은 fully expanded, predicates > args 에 해당
     }
 
+    public CheckTokenGatewayFilterFactory() {
+        super(Config.class);
+    }
+
     @Override
     public List<String> shortcutFieldOrder() {
         return List.of("tokenHeaderName"); // shortcut 방식 사용 가능 하도록 함
