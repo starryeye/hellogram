@@ -1,11 +1,11 @@
 package dev.practice.gateway.filter;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.web.server.ServerWebExchange;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +15,7 @@ import java.util.Optional;
 @Component
 public class CheckTokenGatewayFilterFactory extends AbstractGatewayFilterFactory<CheckTokenGatewayFilterFactory.Config> {
 
+    @Setter
     @Getter
     public static class Config {
         private String tokenHeaderName; // tokenHeaderName 이라는 변수 명은 fully expanded, predicates > args 에 해당
