@@ -3,6 +3,9 @@ reactive stack 으로 구현하는 SNS, 모의 instagram
 
 ## architecture
 - todo
+ 
+## api
+- todo
 
 ## projects
 - article
@@ -23,4 +26,3 @@ reactive stack 으로 구현하는 SNS, 모의 instagram
 - gateway
   - Reactive stack
     - spring-cloud-starter-gateway
- 
