@@ -1,5 +1,6 @@
 # hellogram
-reactive stack 으로 구현하는 SNS, 모의 instagram
+reactive stack 으로 구현하는 모의 SNS
+
 
 ## architecture
 - 모든 application 은 reactive 기반이다.(with Netty)
