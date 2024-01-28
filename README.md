@@ -1,15 +1,6 @@
 # hellogram
 reactive stack 으로 구현하는 SNS, 모의 instagram
 
-## 주요 기술
-- spring-boot-starter-webflux
-- spring-cloud-starter-circuitbreaker-reactor-resilience4j
-- spring-cloud-stream
- - spring-cloud-stream-binder-kafka-reactive
-- spring-boot-starter-data-mongodb-reactive
-- testcontainers
-- spring-cloud-starter-gateway
-
 ## architecture
 - <img width="929" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/6d0b6445-b6ce-48c9-8b1b-93faed010ded">
  
