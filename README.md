@@ -2,6 +2,7 @@
 reactive stack 으로 구현하는 SNS, 모의 instagram
 
 ## architecture
+- 모든 application 은 reactive 기반이다.(with Netty)
 - <img width="929" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/6d0b6445-b6ce-48c9-8b1b-93faed010ded">
  
 ## api
