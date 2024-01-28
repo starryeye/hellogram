@@ -6,5 +6,5 @@ X-I-AM: 123123
 {
   "title": "article from gateway",
   "content": "article content from gateway",
-  "thumbnailImageIds": ["1", "2"]
+  "thumbnailIds": ["1", "2", "3"]
 }
