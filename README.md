@@ -11,10 +11,10 @@ reactive stack 으로 구현하는 SNS, 모의 instagram
 - spring-cloud-starter-gateway
 
 ## architecture
-- <img width="945" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/a3db2437-2a47-4cbd-a737-b025341e85bc">
+- <img width="929" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/6d0b6445-b6ce-48c9-8b1b-93faed010ded">
  
 ## api
-- 각 프로젝트에 http 디렉토리에 존재
+- 각 프로젝트 http 디렉토리에 존재
 
 ## projects
 - article
@@ -38,3 +38,5 @@ reactive stack 으로 구현하는 SNS, 모의 instagram
     - spring-cloud-starter-gateway
 
 ## todo
+- user db mysql
+- notification application
