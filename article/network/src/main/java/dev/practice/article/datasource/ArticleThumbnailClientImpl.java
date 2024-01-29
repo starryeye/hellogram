@@ -5,8 +5,8 @@ import dev.practice.article.datasource.rest.image.ImageClient;
 import dev.practice.article.datasource.rest.image.ImageResponse;
 import dev.practice.article.entity.ArticleThumbnail;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4JCircuitBreakerFactory;
 import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
-import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreakerFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -18,7 +18,8 @@ import java.util.function.Function;
 public class ArticleThumbnailClientImpl implements ArticleThumbnailClient {
 
     private final ImageClient imageClient;
-    private final ReactiveCircuitBreakerFactory cbf;
+//    private final ReactiveCircuitBreakerFactory cbf;
+    private final ReactiveResilience4JCircuitBreakerFactory cbf;
 
     @Override
     public Flux<ArticleThumbnail> getArticleThumbnails(List<String> articleThumbnailIds) {
