@@ -1,5 +1,5 @@
 # hellogram
-reactive stack 으로 구현하는 모의 SNS
+spring reactive stack 으로 구현하는 모의 SNS
 
 
 ## architecture
