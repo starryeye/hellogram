@@ -2,18 +2,21 @@ package dev.practice.user.repository;
 
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Table("FOLLOW")
 public class FollowEntity extends BaseEntity{ // auditing
 
     @Id
-    private final Long id; // auto generate
+    private Long id; // auto generate
 
-    private final Long fromUserId;
-    private final Long toUserId;
+    private Long fromUserId;
+    private Long toUserId;
 
     @Builder // 유일한 생성자 (For object mapping, instance creation)
     private FollowEntity(Long id, Long fromUserId, Long toUserId) {

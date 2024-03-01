@@ -35,8 +35,11 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
+	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.cloud:spring-cloud-stream-test-binder'
+
+	runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.107.Final:osx-aarch_64'
 }
 
 dependencyManagement {
