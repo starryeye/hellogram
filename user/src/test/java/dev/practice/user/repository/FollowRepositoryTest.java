@@ -51,6 +51,18 @@ class FollowRepositoryTest {
         StepVerifier.create(saved)
                 .assertNext(
                         follow -> {
+                            /**
+                             * todo,
+                             *  follow.id 가 final 인지 아닌지에 따라..
+                             *  followEntity, follow 가 동일하거나 동일하지 않다.
+                             *  createdAt 도 property population 이 되기도 하고 ..안되기도 한다..
+                             *
+                             * todo,
+                             *  object mapping 다시 정리..
+                             *
+                             * todo,
+                             *  h2 로 test 하자
+                             */
                             System.out.println(follow.toString());
                             System.out.println(followEntity.toString());
 
