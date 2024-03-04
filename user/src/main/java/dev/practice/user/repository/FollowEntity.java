@@ -13,24 +13,26 @@ import java.time.LocalDateTime;
 public class FollowEntity extends BaseEntity{ // auditing
 
     @Id
-    private Long id; // auto generate
+    private final Long id; // auto generate
 
-    private Long fromUserId;
-    private Long toUserId;
+    private final Long fromUserId;
+    private final Long toUserId;
 
-    @Builder // 유일한 생성자 (For object mapping, instance creation)
-    private FollowEntity(Long id, Long fromUserId, Long toUserId) {
+    @Builder // 유일한 생성자이면서 AllArgumentConstructor (For object mapping, instance creation)
+    private FollowEntity(Long id, Long fromUserId, Long toUserId, LocalDateTime createdAt) {
+        super(createdAt);
         this.id = id;
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
     }
 
-    // static 편의
+    // 편의 static
     public static FollowEntity create(Long fromUserId, Long toUserId) {
         return FollowEntity.builder()
                 .id(null)
                 .fromUserId(fromUserId)
                 .toUserId(toUserId)
+                .createdAt(null)
                 .build();
     }
 }

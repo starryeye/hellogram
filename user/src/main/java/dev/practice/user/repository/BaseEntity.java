@@ -1,16 +1,18 @@
 package dev.practice.user.repository;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class BaseEntity {
+@RequiredArgsConstructor
+public abstract class BaseEntity {
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 
 //    @LastModifiedDate
 //    private LocalDateTime updatedAt;
