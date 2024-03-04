@@ -23,7 +23,7 @@ public class NewArticleAlertUsecase {
 
         String message = notificationService.getCreatedArticleMessage(creatorId, articleId);
 
-        return Flux.fromIterable(followService.getFollowerIds(creatorId))
+        return followService.getFollowerIds(creatorId)
                         .map(
                                 followerId -> notificationService.getCreatedNotificationEvent(followerId, creatorId, message)
                         );

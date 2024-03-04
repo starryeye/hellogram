@@ -4,3 +4,8 @@ CREATE TABLE FOLLOW (
     to_user_id BIGINT NOT NULL,
     created_at DATETIME NOT NULL
 );
+
+insert into FOLLOW(id, from_user_id, to_user_id, created_at)
+values (1, 1001, 100, '2024-03-04 21:50:01'),
+values (2, 1002, 100, '2024-03-04 21:50:02'),
+values (3, 1003, 100, '2024-03-04 21:50:03')
