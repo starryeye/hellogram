@@ -23,7 +23,7 @@ public class FollowService {
 //                followeeId + "3"
 //        );
 
-        return followRepository.findByToUserId(Long.getLong(followeeId))
+        return followRepository.findByToUserId(Long.parseLong(followeeId))
                 .map(
                         followEntity -> String.valueOf(followEntity.getFromUserId())
                 );
