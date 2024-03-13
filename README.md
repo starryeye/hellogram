@@ -31,5 +31,4 @@ spring reactive stack 으로 구현하는 모의 SNS
     - spring-cloud-starter-gateway
 
 ## todo
-- user db mysql
 - notification application
