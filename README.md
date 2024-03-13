@@ -4,7 +4,7 @@ spring reactive stack 으로 구현하는 모의 SNS
 
 ## architecture
 - 모든 application 은 reactive 기반이다.(with Netty)
-- <img width="935" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/b0115114-7955-42b2-9035-b2f18f881cd7">
+- <img width="932" alt="image" src="https://github.com/starryeye/hellogram/assets/33487061/de913d0c-23b2-47ef-ad84-382da7be523f">
  
 ## api
 - 각 프로젝트 http 디렉토리에 존재
