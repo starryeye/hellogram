@@ -17,6 +17,7 @@ spring reactive stack 으로 구현하는 모의 SNS
     - spring-boot-starter-webflux
     - spring-boot-starter-data-mongodb-reactive
     - spring-cloud-starter-circuitbreaker-reactor-resilience4j
+    - spring-cloud-stream
     - spring-cloud-stream-binder-kafka-reactive
     - testcontainers
 - image
@@ -25,7 +26,10 @@ spring reactive stack 으로 구현하는 모의 SNS
     - spring-boot-starter-data-redis-reactive
 - user
   - 주요 의존성
+    - spring-cloud-stream
     - spring-cloud-stream-binder-kafka-reactive
+    - spring-boot-starter-data-r2dbc
+    - r2dbc-mysql:1.0.5
 - gateway
   - 주요 의존성
     - spring-cloud-starter-gateway
