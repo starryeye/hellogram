@@ -89,24 +89,28 @@ class FollowRepositoryTest {
     @Test
     void update() {
 
+        /**
+         * 참고
+         * 
+         * schema.sql 에 DATETIME(6) 으로 정의하여.. 시간단위를 마이크로 세컨드 까지 mysql 에 저장되도록 해야 해당 테스트가 정상 통과가 된다.
+         * LocalDateTime 은 2024-06-28T22:41:56.308503 와 같이 마이크로 세컨드 까지 생성한다.
+         */
+
         // given
         Long fromUserId = 1L;
         Long toUserId = 2L;
         String beforeDescription = "school friend";
         String afterDescription = "my love";
 
-        FollowEntity followEntity = FollowEntity.create(fromUserId, toUserId, beforeDescription);
-        FollowEntity saved = followRepository.save(followEntity).block();
+        FollowEntity created = FollowEntity.create(fromUserId, toUserId, beforeDescription);
+        FollowEntity saved = followRepository.save(created).block();
 
         assert saved != null;
-        System.out.println("saved.createdAt = " + saved.getCreatedAt());
 
         // when
         Mono<FollowEntity> changed = followRepository.findById(saved.getId())
                 .flatMap(foundEntity -> {
-                    System.out.println("found.createdAt = " + foundEntity.getCreatedAt());
                     FollowEntity changedEntity = foundEntity.changeDescription(afterDescription);
-                    System.out.println("change.createdAt = " + changedEntity.getCreatedAt());
                     return followRepository.save(changedEntity);
                 });
 
