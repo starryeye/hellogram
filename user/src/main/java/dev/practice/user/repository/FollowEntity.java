@@ -18,21 +18,38 @@ public class FollowEntity extends BaseEntity{ // auditing
     private final Long fromUserId;
     private final Long toUserId;
 
+    private final String description; // relation description lol..
+
     @Builder // 유일한 생성자이면서 AllArgumentConstructor (For object mapping, instance creation)
-    private FollowEntity(Long id, Long fromUserId, Long toUserId, LocalDateTime createdAt) {
-        super(createdAt);
+    private FollowEntity(Long id, Long fromUserId, Long toUserId, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        super(createdAt, updatedAt);
         this.id = id;
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
+        this.description = description;
     }
 
     // 편의 static
-    public static FollowEntity create(Long fromUserId, Long toUserId) {
+    public static FollowEntity create(Long fromUserId, Long toUserId, String description) {
         return FollowEntity.builder()
                 .id(null)
                 .fromUserId(fromUserId)
                 .toUserId(toUserId)
+                .description(description)
                 .createdAt(null)
+                .updatedAt(null)
+                .build();
+    }
+
+    public FollowEntity changeDescription(String newDescription) {
+
+        return FollowEntity.builder()
+                .id(id)
+                .fromUserId(fromUserId)
+                .toUserId(toUserId)
+                .description(newDescription)
+                .createdAt(getCreatedAt())
+                .updatedAt(null)
                 .build();
     }
 }

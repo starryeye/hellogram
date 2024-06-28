@@ -45,7 +45,10 @@ class FollowRepositoryTest {
     void save() {
 
         // given
-        FollowEntity followEntity = FollowEntity.create(1L, 2L);
+        Long fromUserId = 1L;
+        Long toUserId = 2L;
+        String description = "school friend";
+        FollowEntity followEntity = FollowEntity.create(fromUserId, toUserId, description);
 
         // when
         Mono<FollowEntity> saved = followRepository.save(followEntity);
@@ -59,20 +62,64 @@ class FollowRepositoryTest {
                              *  h2 로 test 하자
                              */
                             System.out.println("given = " + followEntity.toString());
-                            System.out.println("saved = " + follow.toString());
                             System.out.println("given.id = " + followEntity.getId());
-                            System.out.println("saved.id = " + follow.getId());
                             System.out.println("given.createdAt = " + followEntity.getCreatedAt());
+                            System.out.println("saved = " + follow.toString());
+                            System.out.println("saved.id = " + follow.getId());
+                            System.out.println("saved.fromUserId = " + follow.getFromUserId());
+                            System.out.println("saved.toUserId = " + follow.getToUserId());
+                            System.out.println("saved.description = " + follow.getDescription());
                             System.out.println("saved.createdAt = " + follow.getCreatedAt());
+                            System.out.println("saved.updatedAt = " + follow.getUpdatedAt());
 
 
                             assertThat(follow.getId()).isNotNull();
                             assertThat(follow.getCreatedAt()).isNotNull();
+                            assertThat(follow.getUpdatedAt()).isNotNull();
 
-                            assertThat(follow.getFromUserId()).isEqualTo(1L);
-                            assertThat(follow.getToUserId()).isEqualTo(2L);
+                            assertThat(follow.getFromUserId()).isEqualTo(fromUserId);
+                            assertThat(follow.getToUserId()).isEqualTo(toUserId);
+                            assertThat(follow.getDescription()).isEqualTo(description);
                         }
                 )
+                .verifyComplete();
+    }
+
+    @DisplayName("update 정상 동작")
+    @Test
+    void update() {
+
+        // given
+        Long fromUserId = 1L;
+        Long toUserId = 2L;
+        String beforeDescription = "school friend";
+        String afterDescription = "my love";
+
+        FollowEntity followEntity = FollowEntity.create(fromUserId, toUserId, beforeDescription);
+        FollowEntity saved = followRepository.save(followEntity).block();
+
+        assert saved != null;
+        System.out.println("saved.createdAt = " + saved.getCreatedAt());
+
+        // when
+        Mono<FollowEntity> changed = followRepository.findById(saved.getId())
+                .flatMap(foundEntity -> {
+                    System.out.println("found.createdAt = " + foundEntity.getCreatedAt());
+                    FollowEntity changedEntity = foundEntity.changeDescription(afterDescription);
+                    System.out.println("change.createdAt = " + changedEntity.getCreatedAt());
+                    return followRepository.save(changedEntity);
+                });
+
+        // then
+        StepVerifier.create(changed)
+                .assertNext(updatedEntity -> {
+                    assertThat(updatedEntity.getId()).isEqualTo(saved.getId());
+                    assertThat(updatedEntity.getFromUserId()).isEqualTo(saved.getFromUserId());
+                    assertThat(updatedEntity.getToUserId()).isEqualTo(saved.getToUserId());
+                    assertThat(updatedEntity.getDescription()).isEqualTo(afterDescription);
+                    assertThat(updatedEntity.getCreatedAt()).isEqualTo(saved.getCreatedAt());
+                    assertThat(updatedEntity.getUpdatedAt()).isAfter(saved.getUpdatedAt());
+                })
                 .verifyComplete();
     }
 
@@ -82,9 +129,9 @@ class FollowRepositoryTest {
 
         // given
         Long followerId = 20L;
-        FollowEntity followEntity1 = FollowEntity.create(10L, followerId);
-        FollowEntity followEntity2 = FollowEntity.create(11L, followerId);
-        FollowEntity followEntity3 = FollowEntity.create(12L, followerId);
+        FollowEntity followEntity1 = FollowEntity.create(10L, followerId, "school friend 1");
+        FollowEntity followEntity2 = FollowEntity.create(11L, followerId, "school friend 2");
+        FollowEntity followEntity3 = FollowEntity.create(12L, followerId, "school friend 3");
 
         Flux<FollowEntity> saved = followRepository.saveAll(List.of(followEntity1, followEntity2, followEntity3));
 
@@ -100,18 +147,21 @@ class FollowRepositoryTest {
                         followEntity -> {
                             assertThat(followEntity.getFromUserId()).isEqualTo(10L);
                             assertThat(followEntity.getToUserId()).isEqualTo(followerId);
+                            assertThat(followEntity.getDescription()).isEqualTo("school friend 1");
                         }
                 )
                 .assertNext(
                         followEntity -> {
                             assertThat(followEntity.getFromUserId()).isEqualTo(11L);
                             assertThat(followEntity.getToUserId()).isEqualTo(followerId);
+                            assertThat(followEntity.getDescription()).isEqualTo("school friend 2");
                         }
                 )
                 .assertNext(
                         followEntity -> {
                             assertThat(followEntity.getFromUserId()).isEqualTo(12L);
                             assertThat(followEntity.getToUserId()).isEqualTo(followerId);
+                            assertThat(followEntity.getDescription()).isEqualTo("school friend 3");
                         }
                 )
                 .verifyComplete();
